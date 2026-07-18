@@ -49,15 +49,15 @@ An IDE integration shows every file Claude touches in a live side panel as it wo
 ![The three ways into Claude Code](images/d01_three_ways.png)
 *Chat, Co Work, and Code, the three tabs inside the desktop app. This guide stays in the Code tab throughout.*
 
-![The Code tab in the sidebar](images/u01_code_tab_sidebar.png)
-*Every build in this guide starts from here: Home switched to Code, then New session.*
+![The Code tab sidebar](images/u01b_sidebar.png)
+*Home switched to Code, a fresh New session, and the account row at the bottom. This is the real layout.*
 
 ## 3. Subscriptions and usage limits
 
 A paid Claude plan is required. Pro, at $20 a month, is a reasonable place to start for learning and for personal tools. Max, at $100 a month, is for people running frequent, heavier builds and gives meaningfully more usage.
 
-Usage resets on a rolling 5 hour window, so hitting a limit mid project isn't a long term blocker. There's also a weekly cap running quietly in the background that's easy to forget about. ![Usage panel](images/u10_usage_settings.png)
-*Settings, then Usage: the rolling 5 hour window and the weekly cap.*
+Usage resets on a rolling 5 hour window, so hitting a limit mid project isn't a long term blocker. There's also a weekly cap running quietly in the background that's easy to forget about. ![The usage dashboard](images/u10b_usage_dashboard.png)
+*Sessions, messages, tokens, and streaks, all visible on the Home tab.*
 
 Both are visible under Settings, then Usage, and it's worth treating that number the way any metered API or compute budget gets treated at work. Token spend is a real cost here, not a flat fee once you're inside the app. Burning through a weekly cap on Opus for a project that only ever needed Sonnet is an easy, avoidable mistake.
 
@@ -65,8 +65,8 @@ Both are visible under Settings, then Usage, and it's worth treating that number
 
 Every project needs a folder on disk for Claude to work in. It creates files there, edits them, and runs commands against them, the same as any local development environment would.
 
-![Selecting a project folder](images/u02_new_project_folder.png)
-*Every project gets its own folder, picked or created before the first prompt.*
+![Picking a project folder](images/u02b_folder_picker.png)
+*A recent folder from the dropdown, or Select folder to open the system file picker.*
 
 The first prompt was intentionally minimal, just an idea and a handful of rules:
 
@@ -80,8 +80,8 @@ after the rotation is completed, not after placing the mark.
 
 ### Plan Mode first
 
-![The Plan Mode toggle in the prompt bar](images/u03_plan_mode_prompt_bar.png)
-*Plan Mode switched on, right in the prompt bar, before the first message is sent.*
+![The Mode dropdown, with Plan selected](images/u03b_mode_dropdown.png)
+*What the video calls "Plan Mode" is actually one option in this Mode dropdown: Manual, Plan, Auto, or Bypass permissions.*
 
 Before sending any first prompt, it's worth switching on Plan Mode. Instead of jumping straight into code, Claude proposes an implementation plan, asks clarifying questions where it genuinely needs them, and waits for approval before writing anything. It's effectively a lightweight design document, generated automatically, and it's a genuinely useful forcing function, since it surfaces ambiguous requirements before any code exists. It isn't a substitute for real technical design review though. Nobody here is checking whether the proposed architecture scales, whether the state model is sound, or whether there's a cleaner way to represent the cube. That judgment still belongs to whoever is directing the build.
 
@@ -89,9 +89,6 @@ Claude asked which cube moves should be allowed, how a draw should be decided, a
 
 ![The Plan Mode workflow](images/d02_plan_mode_flow.png)
 *Prompt, plan, review, build, the loop behind every project in this guide.*
-
-![Reviewing and accepting a plan](images/u04_plan_review_accept.png)
-*The generated plan, with Accept and allow edits sitting right below it.*
 
 ### What happens during the build
 
@@ -128,8 +125,8 @@ Every conversation accumulates history, and Claude uses that history as context.
 
 The more reliable pattern is starting a new session on purpose rather than letting one grow indefinitely. The tradeoff is that a fresh session knows nothing about the previous conversation. It only knows what's actually saved in the project folder, which is exactly why the next part matters.
 
-![The slash command menu](images/u05_slash_commands.png)
-*Typing / surfaces every built in command, including /init.*
+![The + menu, including Slash commands](images/u05b_plus_menu.png)
+*Slash commands live under the + button, alongside file uploads and connectors.*
 
 Typing `/` opens the full command list, including every built in skill. A few worth knowing beyond the obvious one: `/init` generates a CLAUDE.md file summarizing the project, `/batch` applies large scale changes in parallel, `/compact` manually triggers a summary of conversation history, and `/debug` helps trace down an issue directly.
 
@@ -152,8 +149,8 @@ Paste that summary into a fresh session pointed at the same folder, and the new 
 
 ## 6. Choosing a model
 
-![The model and effort selector](images/u06_model_selector.png)
-*Switching models and adjusting effort, right where prompts get sent.*
+![The model list and effort slider](images/u06b_model_effort.png)
+*The current model lineup, and the Faster to Smarter effort slider next to it.*
 
 Claude Code offers three tiers, and picking the right one is a real tradeoff between capability and cost, not just a preference toggle.
 
