@@ -6,25 +6,25 @@ Claude Code can plan a project, write the code, run it, catch its own bugs, and 
 
 ## Contents
 
-1. What Claude Code actually is
-2. Where you use it
-3. Subscriptions and usage limits
-4. Build 1: the Cube Tacto game
-5. Keeping context under control (CLAUDE.md)
-6. Choosing a model
-7. Running builds in parallel
-8. MCPs: connecting Claude to your tools
-9. Build 5: a Kanban automation
-10. Build 6: Morsel, an AI calorie tracking app
-11. API keys and secrets
-12. Getting connected to GitHub
-13. Skills and plugins
-14. Before you ship: a security check
-15. Putting it on the internet
-16. Using it on your phone
-17. Cheat sheet
-18. Every prompt, ready to copy
-19. A software engineer's take
+1. [What Claude Code actually is](#1-what-claude-code-actually-is)
+2. [Where you use it](#2-where-you-use-it)
+3. [Subscriptions and usage limits](#3-subscriptions-and-usage-limits)
+4. [Build 1: the Cube Tacto game](#4-build-1-a-rubiks-cube-and-tic-tac-toe-game)
+5. [Keeping context under control (CLAUDE.md)](#5-keeping-context-under-control-with-claudemd)
+6. [Choosing a model](#6-choosing-a-model)
+7. [Running builds in parallel](#7-running-builds-in-parallel)
+8. [MCPs: connecting Claude to your tools](#8-mcps-connecting-claude-to-your-tools)
+9. [Build 5: a Kanban automation](#9-build-5-automating-a-kanban-board-with-granola-and-asana)
+10. [Build 6: Morsel, an AI calorie tracking app](#10-build-6-morsel-an-ai-calorie-tracking-app)
+11. [API keys and secrets](#11-api-keys-and-secrets)
+12. [Getting connected to GitHub](#12-getting-connected-to-github)
+13. [Skills and plugins](#13-skills-and-plugins)
+14. [Before you ship: a security check](#14-before-you-ship-a-security-check)
+15. [Putting it on the internet](#15-putting-it-on-the-internet)
+16. [Using it on your phone](#16-using-it-on-your-phone)
+17. [Cheat sheet](#17-cheat-sheet)
+18. [Every prompt, ready to copy](#18-every-prompt-ready-to-copy)
+19. [A software engineer's take](#19-a-software-engineers-take)
 
 ***
 
@@ -40,7 +40,7 @@ It's worth being precise about what's happening underneath, because it changes h
 
 There are three ways into Claude Code.
 
-The desktop app is the simplest starting point. Inside it there are three tabs: Chat, which is the regular Claude experience, Co Work, and Code, which is where the actual building happens and what this guide uses throughout.
+The [desktop app](https://claude.ai/download) is the simplest starting point. Inside it there are three tabs: Chat, which is the regular Claude experience, Co Work, and Code, which is where the actual building happens and what this guide uses throughout.
 
 ![The three tabs in the desktop app](images/02_three_tabs.jpg)
 *Chat, Co Work, and Code, the three tabs inside the desktop app.*
@@ -177,7 +177,7 @@ The request was for something visually distinctive with a neural network feel. C
 
 This one solves a small, real annoyance: cleaning up a YouTube transcript that normally comes with timestamps and broken line spacing. The goal was a single button producing clean text.
 
-Installing a Claude built Chrome extension follows the same steps as any unpacked extension: open `chrome://extensions`, turn on Developer Mode, click Load Unpacked, and select the folder Claude created.
+Installing a Claude built Chrome extension follows the same steps as any unpacked extension: open [chrome://extensions](chrome://extensions), turn on Developer Mode, click Load Unpacked, and select the folder Claude created.
 
 ![Chrome developer mode](images/15_chrome_devmode.jpg)
 *Loading the extension through Chrome's developer mode.*
@@ -260,7 +260,7 @@ Plan Mode asked several clarifying questions, including which stack to use. The 
 
 Testing the AI photo analysis feature requires an API key, a unique string that authorizes access to a service and tracks usage for billing, the same as any other API credential in any other project. A Claude API key, used for calling the model programmatically from inside an app, is separate from a Claude subscription, used for chatting and building inside the app itself. It's funded independently through the Anthropic Console, and each call draws down that balance.
 
-Getting one: open the Anthropic Console, add funds, go to API Keys, create a new key, name it so usage can be tracked by project, and copy it immediately, since it won't be shown again.
+Getting one: open the [Anthropic Console](https://console.anthropic.com/), add funds, go to API Keys, create a new key, name it so usage can be tracked by project, and copy it immediately, since it won't be shown again.
 
 ![Console API keys page](images/23_console_apikeys.jpg)
 *Managing API keys through the Anthropic Console.*
@@ -281,7 +281,7 @@ This is basic secrets hygiene, and it's the right minimum bar for a personal pro
 
 ## 12. Getting connected to GitHub
 
-GitHub hosts the code in the cloud, which means access from any device, easy sharing, deployment, and real version control, a saved history that can be rolled back if something breaks.
+[GitHub](https://github.com) hosts the code in the cloud, which means access from any device, easy sharing, deployment, and real version control, a saved history that can be rolled back if something breaks.
 
 Git needs to be installed locally first.
 
@@ -346,7 +346,7 @@ An automated scan like this is a useful first pass, not a real security audit, a
 
 ## 15. Putting it on the internet
 
-Deployment here uses Vercel, a common platform that's free at personal project scale.
+Deployment here uses [Vercel](https://vercel.com), a common platform that's free at personal project scale.
 
 Getting a simple project live: create a Vercel account, optionally signing in with GitHub directly, click Continue with GitHub on the Import Git Repository screen, install to connect Vercel to the GitHub account, select the repositories to connect, then click Import on the project and Deploy.
 
@@ -358,7 +358,7 @@ That's enough to have the project live with a shareable URL. Every subsequent pu
 ![Vercel dashboard](images/33_vercel_dashboard.jpg)
 *A live deployment, with the shareable domain visible in the dashboard.*
 
-For something like Morsel, the process follows the same shape but hits real friction along the way. The fix loop stays the same throughout, copy the error or screenshot it, hand it to Claude, work through the fix together. Two issues came up that are common enough to expect elsewhere too. Missing environment variables, since `.env.local` is intentionally never pushed to GitHub, the API key and any other secrets have to be added manually inside Vercel's project settings. And storage, since an app that persists data, like food logs and photos, needs somewhere to put it. Vercel's Storage tab supports setting up a database, Neon in this case, for structured data, and Blob storage for files. Once both are connected alongside the API key as an environment variable, the full pipeline works end to end.
+For something like Morsel, the process follows the same shape but hits real friction along the way. The fix loop stays the same throughout, copy the error or screenshot it, hand it to Claude, work through the fix together. Two issues came up that are common enough to expect elsewhere too. Missing environment variables, since `.env.local` is intentionally never pushed to GitHub, the API key and any other secrets have to be added manually inside Vercel's project settings. And storage, since an app that persists data, like food logs and photos, needs somewhere to put it. Vercel's Storage tab supports setting up a database, [Neon](https://neon.tech) in this case, for structured data, and Blob storage for files. Once both are connected alongside the API key as an environment variable, the full pipeline works end to end.
 
 ![Vercel environment variables](images/34_vercel_envvars.jpg)
 *Adding the API key manually as an environment variable inside Vercel.*
