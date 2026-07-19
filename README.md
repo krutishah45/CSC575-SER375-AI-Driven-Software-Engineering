@@ -94,7 +94,7 @@ Claude asked which cube moves should be allowed, how a draw should be decided, a
 
 Claude works through a visible list of steps: creating files, running commands, updating its own task list. It also opens its own preview and tests the running game itself, clicking through moves, checking results, and going back to fix anything that failed before ever surfacing the result to you.
 
-![The self testing loop during a build](images/d03_build_test_loop.png)
+![The self testing loop during a build](images/d03_build_test_loop_v2.png)
 *Claude writes code, runs it, tests it, and loops back to fix problems before showing you anything.*
 
 This self testing loop is one of the more genuinely impressive parts of the whole tool, but it's worth being precise about what it actually is. It's closer to manual exploratory testing performed by the model itself than to a real test suite. There are no unit tests, no regression tests, nothing that runs automatically the next time the code changes. For a game built for fun that's a completely fair tradeoff. For anything that will be maintained over time, or touched by more than one person, someone still needs to add real, repeatable tests on top.
