@@ -49,7 +49,7 @@ An IDE integration shows every file Claude touches in a live side panel as it wo
 ![The three ways into Claude Code](images/d01_three_ways.png)
 *Chat, Co Work, and Code, the three tabs inside the desktop app. This guide stays in the Code tab throughout.*
 
-![The Code tab sidebar](images/u01b_sidebar.png)
+![The Code tab sidebar](images/u01b_sidebar_v2.png)
 *Home switched to Code, a fresh New session, and the account row at the bottom. This is the real layout.*
 
 ## 3. Subscriptions and usage limits
