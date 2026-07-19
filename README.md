@@ -66,7 +66,7 @@ Both are visible under Settings, then Usage, and it's worth treating that number
 Every project needs a folder on disk for Claude to work in. It creates files there, edits them, and runs commands against them, the same as any local development environment would.
 
 ![Picking a project folder](images/u02b_folder_picker.png)
-*A recent folder from the dropdown, or Select folder to open the system file picker.*
+*"Where Claude runs": Local, or Select folder to point it at a project on disk.*
 
 The first prompt was intentionally minimal, just an idea and a handful of rules:
 
