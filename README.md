@@ -199,8 +199,11 @@ MCP is a protocol that connects Claude Code, or any AI agent, to external tools 
 
 Connectors live under Customize, then Connectors, or through the Connect Your Apps button, which opens the full browsable list.
 
-![The connectors page](images/u07_connectors_page.png)
-*Granola, Asana, and Context7 connected; more available to add.*
+![The Connectors settings page](images/u07b_connectors_settings.png)
+*Settings, then Connectors: popular options up top, everything already connected listed below with its status.*
+
+![The connector directory](images/u07c_connectors_directory.png)
+*Browsing the full directory to add a new one, ranked by popularity, each with a short description of what it does.*
 
 A few worth knowing specifically: Granola connects meeting notes, Asana connects team tasks and projects, Context7 pulls current documentation for more than fifty frameworks, which matters because a model's training data can lag behind a framework's actual current API, and Stripe smooths out building anything involving payments.
 
