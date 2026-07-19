@@ -142,8 +142,8 @@ decisions we made, current state, and what's left to do — so I can
 paste it into a new session.
 ```
 
-![Keeping context under control with CLAUDE.md](images/d05_claude_md.png)
-*A long session drifts as it fills up. CLAUDE.md plus a short summary hands a fresh session everything it needs.*
+![Keeping context under control with CLAUDE.md](images/d05_claude_md_v2.png)
+*Each fading bar is a message in the conversation, older ones fade as the session fills up and gets compacted. CLAUDE.md plus a short summary hands a fresh session everything it needs.*
 
 Paste that summary into a fresh session pointed at the same folder, and the new session has both the permanent context from CLAUDE.md and the situational context of exactly where things stood.
 
