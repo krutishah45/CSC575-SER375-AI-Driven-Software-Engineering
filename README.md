@@ -207,9 +207,6 @@ Connectors live under Customize, then Connectors, or through the Connect Your Ap
 
 A few worth knowing specifically: Granola connects meeting notes, Asana connects team tasks and projects, Context7 pulls current documentation for more than fifty frameworks, which matters because a model's training data can lag behind a framework's actual current API, and Stripe smooths out building anything involving payments.
 
-![MCPs connect Claude to external tools](images/d08_mcp_connectors.png)
-*One connector protocol, many tools plugged in: meeting notes, task boards, docs, payments.*
-
 Once connected, each one can be configured with fine grained permissions, block specific actions, require manual approval, or allow automatically.
 
 This is functionally the same idea as tool calling or function calling, exposed through a shared discovery and permissioning layer. It's convenient, and it's also worth remembering that every connector added is new attack surface and a new place where a mistake, or a prompt injection buried in some untrusted content, could trigger an action nobody actually wanted. The permission model here is coarser than a proper least privilege system in a production environment, so treating allow automatically the way you'd treat a service account with broad scopes, convenient, but something to be deliberate about rather than a default reached for everywhere, is a reasonable instinct to keep.
