@@ -1,5 +1,7 @@
 # Claude Code: A Working Engineer's Walkthrough
 
+*Last verified: July 19, 2026. Pricing, model names, and interface details change often, treat anything time sensitive here as accurate as of this date, not a permanent fact.*
+
 Six real projects: a game, a Chrome extension, a link in bio page, a landing page, a workflow automation, and a full AI powered mobile app. All built by describing what was wanted in plain English rather than writing code directly.
 
 Claude Code can plan a project, write the code, run it, catch its own bugs, and fix them, often before you see a single file. That's a real shift in how fast an idea can turn into something working. It's also not the whole story. A generated plan is not a design review. A model testing its own code is not a test suite. A clean security scan is not a security audit. None of that makes the tool less useful, it just means the parts of engineering that require judgment, correctness, security, and knowing why something works rather than just that it happened to, are still on you. The six builds below cover both halves: what got built, and what a working engineer would still want to check.
@@ -36,6 +38,8 @@ If you've used Lovable, Base44, or built something inside a chat interface befor
 
 It's worth being precise about what's happening underneath, because it changes how much trust to place in the output. This is still a language model making tool calls, read a file, write a file, run a command, wrapped in a loop that plans, executes, and checks its own work. That's genuinely powerful, but it's only as good as the plan it happened to make and the tests it happened to think of. It doesn't replace actually understanding what the code does, it just moves that understanding to review time instead of writing time.
 
+> **Try it:** In one sentence, describe a small tool you'd want built, the way you'd say it out loud to a person, not as a spec. That's the level of detail Claude Code expects for a first prompt.
+
 ## 2. Where you use it
 
 There are three ways into Claude Code.
@@ -52,14 +56,18 @@ An IDE integration shows every file Claude touches in a live side panel as it wo
 ![The Code tab sidebar](images/u01b_sidebar_v2.png)
 *Home switched to Code, a fresh New session, and the account row at the bottom. This is the real layout.*
 
+> **Try it:** Open the desktop app and switch to the Code tab. Look at the other two options, terminal and IDE integration, and write one sentence on which you'd default to for your own setup, and why.
+
 ## 3. Subscriptions and usage limits
 
-A paid Claude plan is required. Pro, at $20 a month, is a reasonable place to start for learning and for personal tools. Max, at $100 a month, is for people running frequent, heavier builds and gives meaningfully more usage.
+A paid Claude plan is required. Pro, at $20 a month, is a reasonable place to start for learning and for personal tools. Max comes in two tiers, $100 a month for 5x the Pro usage, or $200 a month for 20x, aimed at people running frequent, heavier builds where rate limits would otherwise get in the way of a full day's work.
 
 Usage resets on a rolling 5 hour window, so hitting a limit mid project isn't a long term blocker. There's also a weekly cap running quietly in the background that's easy to forget about. ![The usage dashboard](images/u10b_usage_dashboard.png)
 *Sessions, messages, tokens, and streaks, all visible on the Home tab.*
 
 Both are visible under Settings, then Usage, and it's worth treating that number the way any metered API or compute budget gets treated at work. Token spend is a real cost here, not a flat fee once you're inside the app. Burning through a weekly cap on Opus for a project that only ever needed Sonnet is an easy, avoidable mistake.
+
+> **Try it:** Open Settings, then Usage, in your own account. Note your rolling 5 hour window and your weekly cap. Based on what you see, estimate how many small projects you could realistically build this week without hitting either limit.
 
 ## 4. Build 1: a Rubik's Cube and Tic Tac Toe game
 
@@ -119,6 +127,8 @@ is an AI that automatically makes a move.
 
 From there it was a series of small, focused prompts: letting the cube rotate freely once the game ends, marking the winning line, hiding hints that gave too much away too early, adding difficulty levels, then rebalancing one that was too hard. Each change was a short, plain language follow up, reviewed and accepted before moving on to the next.
 
+> **Try it:** Build something small using Plan Mode, then make three iterative changes to it, one at a time. After each change, note whether it did what you expected, and if not, whether you could tell why just from that one prompt.
+
 ## 5. Keeping context under control with CLAUDE.md
 
 Every conversation accumulates history, and Claude uses that history as context. That context window is finite. As it fills up, Claude compacts the conversation, summarizing what came before to make room. Compaction isn't lossless. Detail gets dropped, nuance gets flattened, and quality can drift the longer a single session runs.
@@ -147,14 +157,16 @@ paste it into a new session.
 
 Paste that summary into a fresh session pointed at the same folder, and the new session has both the permanent context from CLAUDE.md and the situational context of exactly where things stood.
 
+> **Try it:** Run `/init` on any small project, real or a throwaway test folder, and read the generated CLAUDE.md. Compare it against what you'd have written yourself. What did it get right, and what would you add?
+
 ## 6. Choosing a model
 
 ![The model list and effort slider](images/u06b_model_effort.png)
 *The current model lineup, and the Faster to Smarter effort slider next to it.*
 
-Claude Code offers three tiers, and picking the right one is a real tradeoff between capability and cost, not just a preference toggle.
+Claude Code offers a tiered lineup of models, and picking the right one is a real tradeoff between capability and cost, not just a preference toggle. The exact names change more often than the underlying idea does, at the time of writing the lineup is Haiku 4.5, Sonnet 5, Opus 4.8, and Fable 5, but the tiering logic below holds regardless of what they're called when you're reading this.
 
-Haiku is fast with a very low token cost, but it's too limited for serious building. Sonnet is strong and efficient, and it's the right choice for iterative edits once a project already exists. Opus is the most capable, with the best reasoning on genuinely hard problems, and it's worth reaching for during initial planning and the first build of anything new.
+The fast, low cost tier (currently Haiku) is too limited for serious building. The strong, efficient middle tier (currently Sonnet) is the right choice for iterative edits once a project already exists. The most capable tier (currently Opus) has the best reasoning on genuinely hard problems, and it's worth reaching for during initial planning and the first build of anything new.
 
 The general pattern that falls out of this: plan and build the first version with Opus, then iterate with Sonnet once the foundation exists. On the Max plan, where limits are less of a concern, running Opus throughout is a reasonable default. There's also a Low, Medium, High, and Max effort setting controlling how many tokens get allocated to a given task, worth matching to actual complexity rather than leaving on autopilot.
 
@@ -162,6 +174,8 @@ The general pattern that falls out of this: plan and build the first version wit
 *Capability and token cost both climb together. Match the model to the task.*
 
 None of this guarantees correctness, and that's worth saying plainly. It's the same tradeoff every team already makes choosing between a cheap model for high volume work and a more expensive one for anything that needs real reasoning behind it. Even Opus, handed the hardest problem in the batch, can come back with a confidently wrong answer. The output still needs a second look, particularly anywhere correctness actually matters.
+
+> **Try it:** Pick one small, well defined feature and build it twice in separate sessions, once on Sonnet and once on Opus. Compare the time it took, the quality of the first result, and how much iteration each one needed.
 
 ## 7. Running builds in parallel
 
@@ -193,6 +207,8 @@ From a single product photo, Claude wrote the copy, features, ingredients, testi
 
 None of these three builds went through any real QA process, cross browser testing, or accessibility review, and it's worth staying aware of that. Fine for a quick personal project or a prototype. Not something to hand to real users without a human actually checking it against whatever standards matter for that audience.
 
+> **Try it:** Start two sessions at once on two different small ideas. Don't touch either for five minutes, then check the session panel. Note how you decide which one to check on first.
+
 ## 8. MCPs: connecting Claude to your tools
 
 MCP is a protocol that connects Claude Code, or any AI agent, to external tools and services. A reasonable way to picture it is a universal connector, something like USB C for software, that lets different tools plug into an agent in a consistent way. Custom MCPs can be built, but Claude already ships with a large library of prebuilt integrations called connectors.
@@ -211,6 +227,8 @@ Once connected, each one can be configured with fine grained permissions, block 
 
 This is functionally the same idea as tool calling or function calling, exposed through a shared discovery and permissioning layer. It's convenient, and it's also worth remembering that every connector added is new attack surface and a new place where a mistake, or a prompt injection buried in some untrusted content, could trigger an action nobody actually wanted. The permission model here is coarser than a proper least privilege system in a production environment, so treating allow automatically the way you'd treat a service account with broad scopes, convenient, but something to be deliberate about rather than a default reached for everywhere, is a reasonable instinct to keep.
 
+> **Try it:** Connect one connector you actually use, and send a single prompt that reads from it (for example, summarizing something from a connected calendar or notes tool). Note what permission level it asked for before it ran.
+
 ## 9. Build 5: automating a Kanban board with Granola and Asana
 
 The goal: pull meeting notes from Granola, extract every action item automatically, place them on a Kanban board, pull in the team roster from Asana, allow dragging teammates onto tasks to assign them, then push the result back to Asana with a single click.
@@ -223,6 +241,8 @@ A few errors surfaced along the way and were fixed the same way as everywhere el
 This example deliberately used a less common combination than a typical Gmail or Calendar demo, to make the point that once the tools already used daily are connected, real automation ideas surface quickly.
 
 As shipped though, this is a working prototype, not a production integration, and it's worth naming that plainly. There's no visible retry logic if the push to Asana fails partway through, no idempotency guarantee if a push accidentally gets sent twice, and no handling for what happens if Granola or Asana rate limits the request. Those are exactly the failure modes a real automation running unattended needs to handle, and none of them tend to show up in a quick demo that just happens to work on the first try.
+
+> **Try it:** You may not have Granola or Asana, that's fine. Pick two tools you actually use daily and sketch, in a few sentences, what a similar automation between them would look like: what triggers it, what it extracts, and where the result ends up.
 
 ## 10. Build 6: Morsel, an AI calorie tracking app
 
@@ -245,6 +265,8 @@ on your logs.
 
 Plan Mode asked several clarifying questions, including which stack to use. The option compatible with Vercel was chosen deliberately, since deployment was already the plan. When a technical option is unclear like this, screenshotting the question and asking Claude directly works well, or keeping a separate chat open for exactly this kind of side question so it doesn't consume the build session's own context. Talking through an idea and letting Claude ask clarifying questions before writing the actual build prompt is also a reasonable way to work.
 
+> **Try it:** Apply the reasoning from this section (almost fits, another subscription, too much data, doesn't exist) to your own life. Name one personal tool you'd genuinely build for yourself if it took an afternoon instead of a weekend.
+
 ## 11. API keys and secrets
 
 Testing the AI photo analysis feature requires an API key, a unique string that authorizes access to a service and tracks usage for billing, the same as any other API credential in any other project. A Claude API key, used for calling the model programmatically from inside an app, is separate from a Claude subscription, used for chatting and building inside the app itself. It's funded independently through the Anthropic Console, and each call draws down that balance.
@@ -264,6 +286,8 @@ The right sequence: ask Claude to create a `.env.local` file, where `.env` denot
 Testing surfaced two quick issues, an API not detected error, and an image too large error that Claude fixed by adding automatic resizing. After that, image analysis worked as expected, along with logging, log history, and personalized advice.
 
 This is basic secrets hygiene, and it's the right minimum bar for a personal project. It isn't a real secrets management setup though. There's no key rotation, no scoping to least privilege, no audit log of when the key gets used, and nothing preventing it from ending up in a screenshot, a backup, or a support ticket by accident. Anything beyond a single person's local machine really wants a proper secrets manager and a rotation policy, not a dotfile sitting on someone's laptop.
+
+> **Try it:** Create an API key in the Anthropic Console, add it to a `.env.local` file in a test project, and confirm it's listed in `.gitignore`. Do this without ever pasting the key into a chat message, then verify with `git status` that the file truly isn't tracked.
 
 ## 12. Getting connected to GitHub
 
@@ -294,12 +318,16 @@ current code.
 
 Pushing code this easily is genuinely convenient, and it's also genuinely risky if it becomes a habit without a second thought behind it. There's no pull request review here, no CI pipeline running tests before merge, nothing stopping a broken or half finished change from landing directly on the default branch. For solo, personal projects that's an acceptable risk to take on. For anything touched by more than one person, or anything that actually matters, the usual practices still apply, branches, review, and tests that run before code merges rather than after.
 
+> **Try it:** Connect your own GitHub account if you haven't already, then push one small test project. Open the resulting repository on GitHub and confirm `.env.local` (if that project has one) did not come along with it.
+
 ## 13. Skills and plugins
 
 Skills are reusable, packaged workflows for repeatable tasks. Some ship built in, some come from the community, and custom ones can be created by running a multi step process once with Claude and asking it to package that process into a skill for future reuse. Plugins follow the same idea at a broader scope, covering an entire role or workflow rather than a single task. Both have community libraries browsable on GitHub beyond whatever ships by default.
 
 ![Skills versus plugins](images/d13_skills_plugins.png)
 *A skill covers one repeated task. A plugin covers a whole role.*
+
+> **Try it:** Browse the built in skills list. Pick one repeated task from your own work, coding or otherwise, and write one sentence describing what a custom skill for it would need to do.
 
 ## 14. Before you ship: a security check
 
@@ -327,6 +355,8 @@ This tends to surface non security issues, browser compatibility problems, untes
 
 An automated scan like this is a useful first pass, not a real security audit, and it's worth holding that distinction clearly. It catches common, well known patterns. It won't catch a subtle authorization bug specific to this application's own logic, and a clean report means no obvious problems were found by this particular pass, not that none exist. Anything handling real user data, payments, or authentication deserves a genuine review by someone who actually understands the threat model, not just a green checkmark from an automated tool.
 
+> **Try it:** Run a security check on any project you've built, even a toy one. Read the full output rather than just the summary line, and note one thing it flagged that you wouldn't have thought to check yourself.
+
 ## 15. Putting it on the internet
 
 Deployment here uses [Vercel](https://vercel.com), a common platform that's free at personal project scale.
@@ -342,6 +372,8 @@ For something like Morsel, the process follows the same shape but hits real fric
 
 None of this replaces an actual staging environment, monitoring, alerting, or a real rollback strategy beyond reverting a git commit, and that's worth being honest about. It's a fine tradeoff for a personal tool with a handful of users. It isn't a production deployment posture, and treating it like one for anything with real usage or real data behind it is usually where problems start.
 
+> **Try it:** Deploy a small project to Vercel, then push one follow up change through Claude Code. Time how long it takes between the push and the live site updating, without you doing anything in between.
+
 ## 16. Using it on your phone
 
 Since Morsel is a mobile responsive web app rather than a native one, installing it looks like this: open the deployed site in a phone's browser, tap Share, then Add to Home Screen.
@@ -352,6 +384,8 @@ Since Morsel is a mobile responsive web app rather than a native one, installing
 From there it sits on the home screen like a native app, existing data is already available since it lives in the cloud database rather than locally, and the phone's camera can be used directly to log new entries, with the same AI analysis running as it did on desktop.
 
 A true native app is a longer, meaningfully different process, worth pursuing once everything covered here feels comfortable, and generally more than most personal projects actually need.
+
+> **Try it:** Add any project you've deployed to your phone's home screen and open it from there. Note anything that feels different from using it in a desktop browser.
 
 ## 17. Cheat sheet
 
@@ -367,7 +401,7 @@ A true native app is a longer, meaningfully different process, worth pursuing on
 
 **Context window and compaction**: the finite memory of a session. Compaction summarizes history once it fills up, at the cost of some detail.
 
-**Haiku, Sonnet, Opus**: fast and light, strong and efficient, and most capable respectively. Match the model to the task.
+**Model tiers**: fast and light, strong and efficient, and most capable respectively (named Haiku, Sonnet, and Opus at the time of writing, names change more often than the tiering logic does). Match the model to the task.
 
 **MCP**: a protocol connecting Claude Code to external tools and services.
 
