@@ -2,7 +2,7 @@
 
 *Last verified: July 19, 2026. Pricing, model names, and interface details change often, treat anything time sensitive here as accurate as of this date, not a permanent fact.*
 
-Six real projects: a game, a Chrome extension, a link in bio page, a landing page, a workflow automation, and a full AI powered mobile app. All built by describing what was wanted in plain English rather than writing code directly.
+Six sample projects: a game, a Chrome extension, a link in bio page, a landing page, a workflow automation, and a full AI powered mobile app. All built by describing what was wanted in plain English rather than writing code directly.
 
 Claude Code can plan a project, write the code, run it, catch its own bugs, and fix them, often before you see a single file. That's a real shift in how fast an idea can turn into something working. It's also not the whole story. A generated plan is not a design review. A model testing its own code is not a test suite. A clean security scan is not a security audit. None of that makes the tool less useful, it just means the parts of engineering that require judgment, correctness, security, and knowing why something works rather than just that it happened to, are still on you. The six builds below cover both halves: what got built, and what a working engineer would still want to check.
 
