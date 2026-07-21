@@ -54,6 +54,7 @@ An IDE integration shows every file Claude touches in a live side panel as it wo
 *Chat, Co Work, and Code, the three tabs inside the desktop app. This guide stays in the Code tab throughout.*
 
 ![The Code tab sidebar](images/u01b_sidebar_v2.png)
+
 *Home switched to Code, a fresh New session, and the account row at the bottom. This is the real layout.*
 
 > **Try it:** Open the desktop app and switch to the Code tab. Look at the other two options, terminal and IDE integration, and write one sentence on which you'd default to for your own setup, and why.
