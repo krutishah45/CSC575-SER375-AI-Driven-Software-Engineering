@@ -1,8 +1,8 @@
-# Claude Code: A Working Engineer's Walkthrough
+# AI-Assisted Software Engineering : A Practical Guide Using Claude Code
 
 *Last verified: July 19, 2026. Pricing, model names, and interface details change often, treat anything time sensitive here as accurate as of this date, not a permanent fact.*
 
-Claude Code dramatically accelerates the software development lifecycle. It can generate a project plan, implement the solution, execute the code, detect issues, and iteratively fix many of them, all with minimal human intervention. This fundamentally changes how quickly ideas can become working software.
+Claude Code dramatically accelerates the software development lifecycle. It can generate a project plan, implement the solution, execute the code, detect issues, and iteratively fix many of them—all with minimal human intervention. This fundamentally changes how quickly ideas can become working software.
 Yet AI-assisted development is only part of the engineering process. A generated architecture is not a formal design review. Self-correcting code is not a replacement for comprehensive testing. Automated security checks are not equivalent to a professional security assessment. While AI can automate many development tasks, engineers remain responsible for evaluating design decisions, validating correctness, ensuring security, and understanding the reasoning behind the implementation.
 The six examples that follow demonstrate both what Claude Code can accomplish independently and the critical engineering evaluations that should still accompany every AI-generated solution.
 
@@ -88,10 +88,14 @@ after the rotation is completed, not after placing the mark.
 
 ### Plan Mode first
 
+> **Engineering note**
+>
+> Plan Mode reduces implementation mistakes by surfacing ambiguities before code is written. It does **not** validate architectural decisions, scalability, or long-term maintainability.
+
 ![The Mode dropdown, with Plan selected](images/u03b_mode_dropdown.png)
 *What the video calls "Plan Mode" is actually one option in this Mode dropdown: Manual, Plan, Auto, or Bypass permissions.*
 
-Before sending any first prompt, it's worth switching on Plan Mode. Instead of jumping straight into code, Claude proposes an implementation plan, asks clarifying questions where it genuinely needs them, and waits for approval before writing anything. It's effectively a lightweight design document, generated automatically, and it's a genuinely useful forcing function, since it surfaces ambiguous requirements before any code exists. It isn't a substitute for real technical design review though. Nobody here is checking whether the proposed architecture scales, whether the state model is sound, or whether there's a cleaner way to represent the cube. That judgment still belongs to whoever is directing the build.
+Before sending any first prompt, it's worth switching on Plan Mode. Instead of jumping straight into code, Claude proposes an implementation plan, asks clarifying questions where it genuinely needs them, and waits for approval before writing anything. It's effectively a lightweight design document, generated automatically, and it's a genuinely useful forcing function, since it surfaces ambiguous requirements before any code exists. It's an excellent starting point, but the architectural trade-offs still need human review. Nobody here is checking whether the proposed architecture scales, whether the state model is sound, or whether there's a cleaner way to represent the cube. That judgment still belongs to whoever is directing the build.
 
 Claude asked which cube moves should be allowed, how a draw should be decided, and how the marks should look. A few answers later, a full plan came back covering the stack, layout, geometry, move logic, and animation approach.
 
@@ -100,7 +104,13 @@ Claude asked which cube moves should be allowed, how a draw should be decided, a
 
 ### What happens during the build
 
-Claude works through a visible list of steps: creating files, running commands, updating its own task list. It also opens its own preview and tests the running game itself, clicking through moves, checking results, and going back to fix anything that failed before ever surfacing the result to you.
+> **Engineering note**
+>
+> Claude's self-testing is best viewed as exploratory testing. Production software still benefits from automated unit, integration, and regression tests.
+
+Claude works through a visible list of steps: creating files, running commands, updating its own task list.
+
+It also opens its own preview and tests the running game itself, clicking through moves, checking results, and going back to fix anything that failed before ever surfacing the result to you.
 
 ![The self testing loop during a build](images/d03_build_test_loop_v3.png)
 *Claude writes code, runs it, tests it, and loops back to fix problems before showing you anything.*
@@ -133,7 +143,9 @@ From there it was a series of small, focused prompts: letting the cube rotate fr
 
 Every conversation accumulates history, and Claude uses that history as context. That context window is finite. As it fills up, Claude compacts the conversation, summarizing what came before to make room. Compaction isn't lossless. Detail gets dropped, nuance gets flattened, and quality can drift the longer a single session runs.
 
-The more reliable pattern is starting a new session on purpose rather than letting one grow indefinitely. The tradeoff is that a fresh session knows nothing about the previous conversation. It only knows what's actually saved in the project folder, which is exactly why the next part matters.
+The more reliable pattern is starting a new session on purpose rather than letting one grow indefinitely.
+
+The tradeoff is that a fresh session knows nothing about the previous conversation. It only knows what's actually saved in the project folder, which is exactly why the next part matters.
 
 ![The + menu, including Slash commands](images/u05b_plus_menu.png)
 *Slash commands live under the + button, alongside file uploads and connectors.*
@@ -160,6 +172,8 @@ Paste that summary into a fresh session pointed at the same folder, and the new 
 > **Try it:** Run `/init` on any small project, real or a throwaway test folder, and read the generated CLAUDE.md. Compare it against what you'd have written yourself. What did it get right, and what would you add?
 
 ## 6. Choosing a model
+
+Once you're comfortable building projects, the next question becomes **which model should do the work.** The answer depends on the trade-off between capability, speed, and cost—not simply on choosing the "smartest" model every time.
 
 ![The model list and effort slider](images/u06b_model_effort.png)
 *The current model lineup, and the Faster to Smarter effort slider next to it.*
@@ -331,6 +345,10 @@ Skills are reusable, packaged workflows for repeatable tasks. Some ship built in
 
 ## 14. Before you ship: a security check
 
+> **Engineering note**
+>
+> A clean security scan means no obvious issues were detected by the tool. It should be treated as the beginning of a security review—not the end.
+
 Before making anything public, running the built in security review is worth the small amount of time it takes.
 
 ```
@@ -353,7 +371,7 @@ This tends to surface non security issues, browser compatibility problems, untes
 ![Before you ship: a security check](images/d14_security_review.png)
 *Two prompts worth running before anything goes public.*
 
-An automated scan like this is a useful first pass, not a real security audit, and it's worth holding that distinction clearly. It catches common, well known patterns. It won't catch a subtle authorization bug specific to this application's own logic, and a clean report means no obvious problems were found by this particular pass, not that none exist. Anything handling real user data, payments, or authentication deserves a genuine review by someone who actually understands the threat model, not just a green checkmark from an automated tool.
+Treat an automated scan like this as a valuable first pass rather than the final word on application security. It catches common, well known patterns. It won't catch a subtle authorization bug specific to this application's own logic, and a clean report means no obvious problems were found by this particular pass, not that none exist. Anything handling real user data, payments, or authentication deserves a genuine review by someone who actually understands the threat model, not just a green checkmark from an automated tool.
 
 > **Try it:** Run a security check on any project you've built, even a toy one. Read the full output rather than just the summary line, and note one thing it flagged that you wouldn't have thought to check yourself.
 
@@ -386,6 +404,20 @@ From there it sits on the home screen like a native app, existing data is alread
 A true native app is a longer, meaningfully different process, worth pursuing once everything covered here feels comfortable, and generally more than most personal projects actually need.
 
 > **Try it:** Add any project you've deployed to your phone's home screen and open it from there. Note anything that feels different from using it in a desktop browser.
+
+
+## Where Claude Code shines—and where it still needs an engineer
+
+| Claude Code excels at | Still benefits from engineering expertise |
+| --- | --- |
+| Scaffolding new applications | System architecture and trade-off analysis |
+| UI prototyping | Performance optimization |
+| API integration and boilerplate | Security architecture and threat modeling |
+| Refactoring well-defined code | Debugging complex concurrency or distributed systems |
+| Documentation generation | Domain-specific business decisions |
+| Rapid experimentation | Production readiness and long-term maintainability |
+
+The fastest path is often to let Claude Code handle the implementation-heavy work while engineers focus on the decisions that require experience, context, and judgment.
 
 ## 17. Cheat sheet
 
@@ -490,8 +522,12 @@ for other people to access?
 
 ## 19. A software engineer's take
 
-Across all six builds, one loop repeats: prompt, Plan Mode, review, build, test, iterate one change at a time, deploy. It genuinely speeds up the parts of engineering that are mostly mechanical, scaffolding a new project, wiring up an API, getting a first working version of something well understood, and iterating on it quickly based on plain language feedback instead of hand editing files.
+Looking back across all six builds, one loop repeats: prompt, Plan Mode, review, build, test, iterate one change at a time, deploy. It genuinely speeds up the parts of engineering that are mostly mechanical, scaffolding a new project, wiring up an API, getting a first working version of something well understood, and iterating on it quickly based on plain language feedback instead of hand editing files.
 
 It doesn't remove the need for engineering judgment, and it was never going to. Nothing here writes real tests on its own. Nothing here reviews a pull request the way a colleague would. Nothing here understands the actual security posture of a system the way a proper threat model does. Nothing here decides whether an architecture holds up at ten times the current load, or whether a shortcut taken today turns painful to unwind in six months. Context can drift, plans can miss edge cases nobody thought to mention, and a security scan that comes back clean is a first pass, not a certificate.
 
-The honest way to put it: Claude Code is a genuinely capable collaborator that removes a lot of the friction between an idea and a working first version. The judgment about correctness, security, maintainability, and whether something is actually ready for other people to depend on still belongs to whoever is directing it. Reading the diff still matters. Understanding why the code works, not just that it happened to work this time, still matters. That part hasn't changed at all.
+Looking back across all six builds, the pattern is remarkably consistent: Claude Code dramatically accelerates implementation, while engineers remain responsible for ensuring the result is correct, secure, maintainable, and production-ready.
+
+Claude Code changes *how* software gets built, not *what makes software engineering valuable*. It removes much of the friction between an idea and a working implementation, but architecture, correctness, security, maintainability, and technical judgment remain fundamentally human responsibilities. Reading the diff still matters. Understanding **why** the code works—not simply that it happened to work this time—still matters. AI is becoming an exceptional implementation partner, not a replacement for engineering expertise.
+
+As a general rule, trust Claude Code most when the cost of being wrong is low and the implementation is well understood. As the impact of failure increases, so should the depth of engineering review.
